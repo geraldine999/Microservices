@@ -1,0 +1,117 @@
+openapi: 3.0.3
+info:
+  title: API Cards
+  description: API para la obtención y validación de tarjetas.
+  version: 0.0.1
+servers:
+  - url: http://localhost:8095
+    description: Local Server
+paths:
+  /cards:
+    get:
+      summary: Obtener la tarjeta de un cliente y validarla.
+      description: Se ingresa un número de cliente y se valida la tarjeta asociada.
+      operationId: getCards
+      parameters:
+        - name: clientId
+          in: query
+          description: numero de identificación del cliente al que le debo validar su tarjeta asociada
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: 1
+        - name: cardNumber
+          in: query
+          description: numero de tarjeta a validar
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: 1
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardResponse'
+        '400':
+          description: Invalid cardNumber
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not found Card by cardNumber
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /cards/{cardNumber}:
+    get:
+      summary: Obtener la tarjeta por su número.
+      description: Se ingresa un número de tarjeta y se obtiene la tarjeta asociada a ese número.
+      operationId: getCardsByNumber
+      parameters:
+        - name: cardNumber
+          in: path
+          description: numero de tarjeta
+          required: true
+          explode: true
+          schema:
+            type: string
+            default: 1
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CardResponse'
+        '404':
+          description: Not found Card by cardNumber
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    CardResponse:
+      type: object
+      properties:
+        number:
+          type: string
+        clientId:
+          type: string
+        company:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/Error'
+    Error:
+      type: object
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+        code:
+          type: integer
+        Detail:
+          type: string

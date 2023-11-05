@@ -1,0 +1,123 @@
+openapi: 3.0.0
+info:
+  title: Products API
+  description: API para gestionar nuestro stock de productos
+  version: 0.0.1
+
+paths:
+  /products:
+    get:
+      summary: Retorna una lista de productos en stock
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema: 
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+                  
+  /products/{product_id}:
+    get:
+      parameters:
+        - in: path
+          name: product_id
+          required: true
+          schema:
+            type: string
+          description: identificador del producto a buscar
+      responses:
+        '200':
+          description: producto encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: no se pudo encontrar el producto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '400':
+          description: la solicitud no tiene el formato correcto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    patch: 
+      parameters:
+        - in: path
+          name: product_id
+          required: true
+          schema:
+            type: string
+          description: identificador del producto a buscar
+      
+      requestBody:
+        description: datos del movimiento de stock a realizar
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StockMovement'
+          
+      responses:
+        '200':
+          description: se realizo un movimiento de stock correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: no se pudo encontrar el producto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '400':
+          description: la solicitud no tiene el formato correcto
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    Product: 
+      type: object
+      properties:
+        id:
+          type: string
+        description:
+          type: string
+        stock:
+          type: integer
+        price:
+          type: number
+    
+    StockMovement:
+      type: object
+      properties:
+        productQuantity:
+          type: integer
+    
+    Error:
+      type: object
+      properties: 
+        code: 
+          type: integer
+        detail: 
+          type: string
+        timestamp: 
+          type: string
+          format: date-time
+    
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+           $ref: '#/components/schemas/Error'
+        

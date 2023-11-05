@@ -1,0 +1,118 @@
+openapi: 3.0.3
+info:
+  title: API Clientes 
+  description: "API de tipo Rest Service para Servicio de Clientes en Proyecto Integrador del programa Ascend JAVA 2022"
+  version: 0.0.1
+paths:
+  /clients/{id}:
+    get:
+      summary: Obtener cliente por id
+      description: "Devuelve un usuario especifico basado en su id"
+      operationId: getClientById
+      parameters:
+        - name: id
+          in: path
+          description: id del cliente
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Operacion exitosa.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client'
+        '400':
+          description: Valor del Id vacio.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        '404':
+          description: Cliente no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+  /clients/dni/{dni}:
+    get:
+      summary: Obtener cliente por dni
+      description: "Devuelve un usuario especifico basado en su dni"
+      operationId: getClientByDni
+      parameters:
+        - name: dni
+          in: path
+          description: dni del cliente
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: Operacion exitosa.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client'
+        '400':
+          description: Valor del DNI vacio.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        '404':
+          description: Cliente no encontrado.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorResponse'
+components:
+  schemas:
+    client:
+      type: object
+      properties:
+        id: 
+          type: integer
+          format: int64
+          example: 1
+        dni:
+          type: integer
+          format: int64
+          example: 10200300
+        fullName:
+          type: string
+          example: "Agustin Silva"
+        address:
+          type: string
+          example: "Caballito, CABA"
+    errorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: "#/components/schemas/error"
+    error:
+      type: object
+      properties:
+        timeStamp:
+          type: string
+          format: date-time
+        code:
+          type: integer
+        detail: 
+          type: string

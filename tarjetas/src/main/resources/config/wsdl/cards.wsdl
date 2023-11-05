@@ -1,0 +1,68 @@
+<wsdl:definitions
+	xmlns:s="http://www.w3.org/2001/XMLSchema"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+	xmlns:tns="http://www.globallogic.com/talen-engine/card"
+	xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+	xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/"
+	xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" targetNamespace="http://www.globallogic.com/talen-engine/card">
+	<wsdl:types>
+		<s:schema elementFormDefault="qualified">
+			<s:element name="cardInput">
+				<s:complexType>
+					<s:sequence>
+						<s:element maxOccurs="1" minOccurs="1" name="clientId" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="card">
+				<s:complexType>
+					<s:sequence>
+						<s:element maxOccurs="1" minOccurs="1" name="id" type="s:string"/>
+						<s:element maxOccurs="1" minOccurs="1" name="clientId" type="s:string"/>
+						<s:element maxOccurs="1" minOccurs="1" name="cardNumber" type="s:string"/>
+						<s:element maxOccurs="1" minOccurs="1" name="cardIssuer" type="s:string"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+			<s:element name="cards">
+				<s:complexType>
+					<s:sequence>
+						<s:element maxOccurs="unbounded" minOccurs="0" ref="card"/>
+					</s:sequence>
+				</s:complexType>
+			</s:element>
+		</s:schema>
+	</wsdl:types>
+	<wsdl:message name="CardResponse">
+		<wsdl:part name="parameters" element="cards"></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name="CardRequest">
+		<wsdl:part name="parameters" element="cardInput"></wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="GetCardsSoap">
+		<wsdl:operation name="Get">
+			<wsdl:input message="tns:CardRequest"></wsdl:input>
+			<wsdl:output message="tns:CardResponse"></wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="GetCardsSoap" type="tns:GetCardsSoap">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsdl:operation name="Get">
+			<soap:operation soapAction="http://www.globallogic.com/talen-engine/GetCards" style="document"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="Cards">
+		<wsdl:port name="Cards" binding="tns:GetCardsSoap">
+			<soap:address location="http://localhost:8079/mockGetCardsSoap"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

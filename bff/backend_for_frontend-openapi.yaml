@@ -1,0 +1,352 @@
+openapi: 3.0.1
+info:
+  title: Backend for Frontend
+  version: v1
+servers:
+  - url: http://localhost:8960/bff_app/v1
+    description: Generated server url
+tags:
+  - name: COMPRAS
+  - name: CONSULTAS
+  - name: REPORTES
+paths:
+  /shop:
+    post:
+      tags:
+        - COMPRAS
+      summary: Realizar una compra
+      operationId: createShop
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SalesDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SalesDTO'
+  /sales:
+    get:
+      tags:
+        - CONSULTAS
+      summary: Obtener todas las ventas
+      operationId: getSalesDto
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SalesDTO'
+  /products:
+    get:
+      tags:
+        - CONSULTAS
+      summary: Obtener todos los productos
+      operationId: getAllProducts
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductDTO'
+  /products/{id}:
+    get:
+      tags:
+        - CONSULTAS
+      summary: Obtener un producto por ID
+      operationId: getProductById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ProductDTO'
+  /products-report:
+    get:
+      tags:
+        - REPORTES
+      summary: Obtener reporte de los 10 productos más vendidos
+      operationId: generateSoldProductsReport
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/SoldProductsReportDTO'
+  /clients:
+    get:
+      tags:
+        - CONSULTAS
+      summary: Obtener todos los clientes
+      operationId: getClients
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ClientDTO'
+  /clients/{id}:
+    get:
+      tags:
+        - CONSULTAS
+      summary: Obtener un cliente por ID
+      operationId: getClient
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ClientDTO'
+  /clients/dni/{dni}:
+    get:
+      tags:
+        - CONSULTAS
+      summary: Obtener un cliente por DNI
+      operationId: getClient_1
+      parameters:
+        - name: dni
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ClientDTO'
+  /client-sales-report/client/{clientId}:
+    get:
+      tags:
+        - REPORTES
+      summary: Obtener reporte de ventas de un cliente por ID
+      operationId: generateClientSalesReportDto
+      parameters:
+        - name: clientId
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ClientSalesReportDto'
+  /client-sales-report/client/dni/{clientDni}:
+    get:
+      tags:
+        - REPORTES
+      summary: Obtener reporte de ventas de un cliente por DNI
+      operationId: generateClientSalesReportDto_1
+      parameters:
+        - name: clientDni
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ClientSalesReportDto'
+  /cards/client/{clientId}/card/{cardNumber}:
+    get:
+      tags:
+        - CONSULTAS
+      summary: Obtener una tarjeta por ID de cliente y número de tarjeta
+      operationId: getCards
+      parameters:
+        - name: clientId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: cardNumber
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CardsResponseDTO'
+components:
+  schemas:
+    SalesDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        typeMethodPayment:
+          type: string
+          enum:
+            - CASH
+            - CARD
+        idCustomer:
+          type: integer
+          format: int32
+        dateSale:
+          type: string
+          format: date-time
+        currency:
+          type: string
+        idCard:
+          type: string
+        totalAmount:
+          type: number
+          format: double
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/SoldProductDTO'
+    SoldProductDTO:
+      type: object
+      properties:
+        productId:
+          type: string
+        description:
+          type: string
+        quantity:
+          type: integer
+          format: int32
+        unitPrice:
+          type: number
+          format: double
+    ProductDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        description:
+          type: string
+        stock:
+          type: integer
+          format: int32
+        price:
+          type: number
+          format: double
+    ProductReportDTO:
+      type: object
+      properties:
+        id:
+          type: string
+        description:
+          type: string
+        totalUnitsSold:
+          type: integer
+          format: int32
+    SoldProductsReportDTO:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductReportDTO'
+    ClientDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        dni:
+          type: integer
+          format: int64
+        fullName:
+          type: string
+        address:
+          type: string
+    CardResponseDto:
+      type: object
+      properties:
+        number:
+          type: string
+        issuer:
+          type: string
+    ClientSalesReportDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        dni:
+          type: integer
+          format: int64
+        fullName:
+          type: string
+        address:
+          type: string
+        sales:
+          type: array
+          items:
+            $ref: '#/components/schemas/SalesResponseDto'
+    SalesResponseDto:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+        methodPayment:
+          type: string
+          enum:
+            - CASH
+            - CARD
+        totalAmount:
+          type: string
+        card:
+          $ref: '#/components/schemas/CardResponseDto'
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/SoldProductDTO'
+    CardsResponseDTO:
+      required:
+        - number
+      type: object
+      properties:
+        number:
+          type: string
+        clientId:
+          type: string
+        company:
+          type: string

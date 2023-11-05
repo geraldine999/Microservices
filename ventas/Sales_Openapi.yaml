@@ -1,0 +1,189 @@
+openapi: 3.0.3
+info:
+  title: Sales 
+  description: |-
+    Sales Process
+  version: 0.0.1
+tags:
+  - name: Sales
+paths:
+  /javaneta/v1/sales:
+    post:
+      tags:
+      - Sales
+      summary: Proceso de registracion de venta
+      operationId: postSales_Process
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SalesRequest'
+        required: true
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SalesResponse'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /javaneta/v1/sales/{id}:
+    get:
+      tags:
+        - Sales
+      summary: id de la venta de la cual se requiere obtener informacion
+      operationId: getSalesById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int64 
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SalesResponse'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  
+  /javaneta/v1/sales/:
+    get:
+      tags:
+        - Sales
+      summary: Lista todas las ventas
+      responses:
+        '201':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SalesResponse'
+        '400':
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse' 
+components:
+  schemas:
+    Products:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 5
+        quantity:
+          type: integer
+          example: "6"
+        unitPrice:
+          type: integer
+          example: 11
+        description:
+          type: string
+          
+    SalesRequest:
+      type: object
+      properties:
+        idCustomer:
+          type: integer
+          format: int64
+          example: 10
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Products' 
+        typeMethodPayment:
+          type: string
+          description: "Es el tipo de metodo de pago (Efvo o tarjeta)"
+          format: enum
+          example: "CASH, CARD"
+        idCard:
+          type: string
+          description: "Es el id de la trajeta"
+          example: 285485245 
+        
+        
+    
+    SalesResponse:
+      type: object
+      properties:
+        idCustomer:
+          type: string
+          example: "10"
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Products'  
+        typeMethodPayment:
+          type: string
+          format: enum
+          example: "CASH, CARD"
+        idCard:
+          type: string
+        totalAmount:
+          type: number
+          format: double
+          example: "116,39"
+        dateSale:
+          type: string
+          format: date
+          description: "Es la fecha en el momento que se realiza la venta"
+          example:  "Fri, 02 Jul 2021 13:06:28 GMT"
+        currency:
+          type: string
+          description: "La moneda de pago va a ser solo PESOS"
+          example: "Pesos" 
+          
+    ErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+           $ref: '#/components/schemas/Error'
+    
+    Error:
+      type: object
+      properties: 
+        timestamp: 
+          type: string
+          format: date-time
+        code: 
+          type: integer
+        detail: 
+          type: string
+
+          
+   

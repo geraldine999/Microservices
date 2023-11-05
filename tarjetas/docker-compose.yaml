@@ -1,0 +1,14 @@
+version: '2.6'
+services:
+  mock-soap:
+      image: gdelgadogl/mock-soap
+      networks:
+        - cards-net
+      ports:
+        - 8090:8090
+      environment:
+        MOCK_SERVICE_NAME: "GetCardsSoap MockService"
+       
+
+networks:
+  cards-net:

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="c12f62a8-7b7a-4258-bffd-6202cba7ea5d" activeEnvironment="Default" name="cards-new" resourceRoot="" soapui-version="5.7.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="933394d8-b095-481a-9ca2-c10600585a0e" wsaVersion="NONE" name="GetCardsSoap" type="wsdl" bindingName="{http://www.globallogic.com/talen-engine/card}GetCardsSoap" soapVersion="1_1" anonymous="optional" definition="file:/C:/Users/agustin.silva/Desktop/cards-new.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:\C:\Users\agustin.silva\Desktop\cards-new.wsdl"><con:part><con:url>file:\C:\Users\agustin.silva\Desktop\cards-new.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://www.globallogic.com/talen-engine/card" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.globallogic.com/talen-engine/card" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified">
+      <s:element name="cardInput">
+        <s:complexType>
+          <s:sequence>
+            <s:element maxOccurs="1" minOccurs="1" name="clientId" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="card">
+        <s:complexType>
+          <s:sequence>
+            <s:element maxOccurs="1" minOccurs="1" name="id" type="s:string"/>
+            <s:element maxOccurs="1" minOccurs="1" name="clientId" type="s:string"/>
+            <s:element maxOccurs="1" minOccurs="1" name="cardNumber" type="s:string"/>
+            <s:element maxOccurs="1" minOccurs="1" name="cardIssuer" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="cards">
+        <s:complexType>
+          <s:sequence>
+            <s:element maxOccurs="unbounded" minOccurs="0" ref="card"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="CardResponse">
+    <wsdl:part name="parameters" element="cards"/>
+  </wsdl:message>
+  <wsdl:message name="CardRequest">
+    <wsdl:part name="parameters" element="cardInput"/>
+  </wsdl:message>
+  <wsdl:portType name="GetCardsSoap">
+    <wsdl:operation name="Get">
+      <wsdl:input message="tns:CardRequest"/>
+      <wsdl:output message="tns:CardResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="GetCardsSoap" type="tns:GetCardsSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="Get">
+      <soap:operation soapAction="http://www.globallogic.com/talen-engine/GetCards" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Cards">
+    <wsdl:port name="Cards" binding="tns:GetCardsSoap">
+      <soap:address location="http://localhost:8079/mockGetCardsSoap"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://EZE1-LLN-B05529:8094/mockGetCardsSoap</con:endpoint><con:endpoint>http://localhost:8079/mockGetCardsSoap</con:endpoint></con:endpoints><con:operation id="ac5980c1-4aaa-4b7e-9c27-ab38704eefb4" isOneWay="false" action="http://www.globallogic.com/talen-engine/GetCards" name="Get" bindingOperationName="Get" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="5b8ed8a6-f0b5-4100-bda9-25b9b438624b" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8094/mockGetCardsSoap</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <cardInput>\r
+      </cardInput>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.globallogic.com/talen-engine/GetCards"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:mockService id="5fc56556-73c2-4e20-a410-b4cffff93437" port="8094" path="/mockGetCardsSoap" host="localhost" name="GetCardsSoap MockService" bindToHostOnly="false" docroot=""><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:properties/><con:mockOperation name="Get" id="cea0aa3d-d09e-45fb-83ea-09fc5ddbd0c9" interface="GetCardsSoap" operation="Get"><con:settings/><con:defaultResponse>Response 1</con:defaultResponse><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:response name="Response 1" id="d0557f95-5db5-461f-875c-dc5ea04376b8" httpResponseStatus="200" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <cards>
+         <card>
+            <id>1</id>
+            <clientId>2</clientId>
+            <cardNumber>5323458712364589</cardNumber>
+            <cardIssuer>Master Card</cardIssuer>
+         </card>
+         <card>
+            <id>2</id>
+            <clientId>7</clientId>
+            <cardNumber>1254785698523654</cardNumber>
+            <cardIssuer>Visa</cardIssuer>
+         </card>
+		<card>
+            <id>3</id>
+            <clientId>5</clientId>
+            <cardNumber>5323458712364589</cardNumber>
+            <cardIssuer>Master Card</cardIssuer>
+         </card>
+         <card>
+            <id>4</id>
+            <clientId>1</clientId>
+            <cardNumber>1254201254788520</cardNumber>
+            <cardIssuer>Visa</cardIssuer>
+         </card>
+         <card>
+            <id>5</id>
+            <clientId>10</clientId>
+            <cardNumber>5323654125478956</cardNumber>
+            <cardIssuer>Master Card</cardIssuer>
+         </card>
+      </cards>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://www.globallogic.com/talen-engine/GetCards"/></con:response><con:dispatchConfig/></con:mockOperation></con:mockService><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

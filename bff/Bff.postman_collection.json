@@ -1,0 +1,211 @@
+{
+	"info": {
+		"_postman_id": "9f687c00-85ce-4e0c-bdd6-ed13c3d6b0a3",
+		"name": "Bff",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23967841"
+	},
+	"item": [
+		{
+			"name": "GetCards",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8960/bff_app/v1/cards/client/7/card/1254785698523654",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8960",
+					"path": [
+						"bff_app",
+						"v1",
+						"cards",
+						"client",
+						"7",
+						"card",
+						"1254785698523654"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetClientByDNI",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8960/bff_app/v1/clients/dni/30600900",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8960",
+					"path": [
+						"bff_app",
+						"v1",
+						"clients",
+						"dni",
+						"30600900"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetClientById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8960/bff_app/v1/clients/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8960",
+					"path": [
+						"bff_app",
+						"v1",
+						"clients",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetProductsReport",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8960/bff_app/v1/products-report",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8960",
+					"path": [
+						"bff_app",
+						"v1",
+						"products-report"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetSales",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8960/bff_app/v1/sales",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8960",
+					"path": [
+						"bff_app",
+						"v1",
+						"sales"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getClientSalesReportById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8960/bff_app/v1/client-sales-report/client/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8960",
+					"path": [
+						"bff_app",
+						"v1",
+						"client-sales-report",
+						"client",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getClientSalesReportByDni",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8960/bff_app/v1/client-sales-report/client/dni/10200300",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8960",
+					"path": [
+						"bff_app",
+						"v1",
+						"client-sales-report",
+						"client",
+						"dni",
+						"10200300"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostShop",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n    \"products\" : [\r\n        {\r\n        \"productId\": \"633c2cd18ed5eb2ff338005c\",\r\n        \"description\": \"una mesita\",\r\n        \"quantity\": 42,\r\n        \"unitPrice\": 23.5},\r\n        {\r\n        \"productId\": \"633c5285cb653a2cda0912d5\",\r\n        \"description\": \"algo\",\r\n        \"quantity\": 12,\r\n        \"unitPrice\": 23.5\r\n        }  \r\n        ]\r\n    ,    \r\n    \"typeMethodPayment\" : \"CARD\",\r\n    \"idCard\" : \"1254201254788520\",\r\n    \"idCustomer\" : \"1\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8960/bff_app/v1/shop",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8960",
+					"path": [
+						"bff_app",
+						"v1",
+						"shop"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

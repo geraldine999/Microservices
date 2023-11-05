@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE suppressions PUBLIC
+    "-//Puppy Crawl//DTD Suppressions 1.1//EN"
+    "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
+
+<suppressions>
+	<suppress files="CardInput\.java" checks="[a-zA-Z0-9]*"/>
+    <suppress files="Card\.java" checks="[a-zA-Z0-9]*"/>
+    <suppress files="Cards\.java" checks="[a-zA-Z0-9]*"/>
+    <suppress files="ObjectFactory\.java" checks="[a-zA-Z0-9]*"/>
+</suppressions>

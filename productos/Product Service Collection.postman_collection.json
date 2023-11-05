@@ -1,0 +1,80 @@
+{
+	"info": {
+		"_postman_id": "a2746f9e-266e-4608-94c8-c7c20a7bc261",
+		"name": "Product Service Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "getAllProducts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/javaneta/v1/products",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"javaneta",
+						"v1",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getProductById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/javaneta/v1/products/633b47c2ce972b55537e478d",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"javaneta",
+						"v1",
+						"products",
+						"633b47c2ce972b55537e478d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateProductStock",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"productQuantity\": 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/javaneta/v1/products/633b47c2ce972b55537e478d",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"javaneta",
+						"v1",
+						"products",
+						"633b47c2ce972b55537e478d"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

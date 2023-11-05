@@ -1,0 +1,25 @@
+server:
+  port: 8960
+  servlet:
+    context-path: /bff_app/v1
+
+spring:
+  application:
+    name: bff
+  sleuth:
+    sampler:
+      probability: 1.0
+  zipkin:
+    base-url: http://localhost:9411/
+
+javaneta-services:
+  base-path: /javaneta/v1
+  
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+feign:
+  httpclient:
+    enabled: true
+
